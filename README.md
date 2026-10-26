@@ -2,7 +2,7 @@
 
 Public field notes on security, engineering and automation.
 
-Site: https://hakermany-wiki.github.io/
+Site: https://wiki.hakermany.com/
 
 ## Local development
 

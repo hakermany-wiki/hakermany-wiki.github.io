@@ -5,7 +5,7 @@ import wikiMarkdown from './src/wiki-markdown.mjs';
 import { unified } from '@astrojs/markdown-remark';
 
 export default defineConfig({
-  site: 'https://hakermany-wiki.github.io',
+  site: 'https://wiki.hakermany.com',
   trailingSlash: 'always',
   integrations: [starlight({
     title: 'HAKERMANY',

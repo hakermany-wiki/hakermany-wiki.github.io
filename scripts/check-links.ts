@@ -8,11 +8,11 @@ let links=0, images=0, tabs=0;
 function document(path:string) { let doc=parsed.get(path); if(!doc){doc=load(require('node:fs').readFileSync(path,'utf8')); parsed.set(path,doc);} return doc; }
 for (const file of files) {
   const path=join(root,file), $=document(path);
-  const base='https://hakermany-wiki.github.io/'+file.replace(/index\.html$/,'');
+  const base='https://wiki.hakermany.com/'+file.replace(/index\.html$/,'');
   $('a[href],img[src],script[src],link[rel="stylesheet"][href]').each((_,el)=>{
     const value=$(el).attr('href')??$(el).attr('src'); if(!value)return;
     if(/^(?:mailto:|tel:|data:)/.test(value))return;
-    const url=new URL(value,base); if(url.origin!=='https://hakermany-wiki.github.io')return;
+    const url=new URL(value,base); if(url.origin!=='https://wiki.hakermany.com')return;
     let local=resolve(root,'.'+decodeURIComponent(url.pathname));
     if(url.pathname.endsWith('/'))local=join(local,'index.html');
     if(!(local===root||local.startsWith(root+sep)))throw Error('Path escapes build');
