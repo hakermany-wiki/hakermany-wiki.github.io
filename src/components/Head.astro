@@ -1,0 +1,47 @@
+---
+import DefaultHead from '@astrojs/starlight/components/Head.astro';
+---
+<DefaultHead {...Astro.props} />
+<script>
+  // Progressive enhancement: every panel is readable before JS initializes.
+  function setupTabs() {
+    document.querySelectorAll<HTMLElement>('.wiki-tabs:not([data-ready])').forEach(group => {
+      const buttons = [...group.querySelectorAll<HTMLButtonElement>(':scope > [role="tablist"] > button')];
+      const panels = [...group.querySelectorAll<HTMLElement>(':scope > [role="tabpanel"]')];
+      if (!buttons.length || buttons.length !== panels.length) return;
+      const select = (index: number, focus = false) => {
+        buttons.forEach((button, i) => { button.setAttribute('aria-selected', String(i === index)); button.tabIndex = i === index ? 0 : -1; panels[i]!.hidden = i !== index; });
+        if (focus) buttons[index]!.focus();
+      };
+      buttons.forEach((button, i) => {
+        button.addEventListener('click', () => select(i));
+        button.addEventListener('keydown', event => {
+          let next = i;
+          if (event.key === 'ArrowRight') next = (i + 1) % buttons.length;
+          else if (event.key === 'ArrowLeft') next = (i - 1 + buttons.length) % buttons.length;
+          else if (event.key === 'Home') next = 0;
+          else if (event.key === 'End') next = buttons.length - 1;
+          else return;
+          event.preventDefault(); select(next, true);
+        });
+      });
+      group.dataset.ready = 'true'; select(0);
+    });
+  }
+  async function setupDiagrams() {
+    const blocks = [...document.querySelectorAll<HTMLElement>('pre.mermaid:not([data-processed])')];
+    if (!blocks.length) return;
+    const [{ default: mermaid }, { default: DOMPurify }] = await Promise.all([import('mermaid'), import('dompurify')]);
+    mermaid.initialize({ startOnLoad: false, securityLevel: 'strict', theme: 'neutral', htmlLabels: false });
+    for (const [i, block] of blocks.entries()) {
+      const source = block.textContent || '';
+      try {
+        const { svg } = await mermaid.render('wiki-diagram-' + i, source);
+        block.innerHTML = DOMPurify.sanitize(svg, { USE_PROFILES: { svg: true, svgFilters: true }, FORBID_TAGS: ['foreignObject', 'script'] });
+        block.dataset.processed = 'true';
+      } catch { block.textContent = source; block.setAttribute('aria-label', 'Diagram source (rendering unavailable)'); }
+    }
+  }
+  setupTabs(); setupDiagrams();
+  document.addEventListener('astro:page-load', () => { setupTabs(); setupDiagrams(); });
+</script>
