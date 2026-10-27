@@ -12,7 +12,7 @@ The wiki lives in [GitHub](https://github.com/hakermany-wiki/hakermany-wiki.gith
 3. Create a branch and open a pull request describing the change.
 4. After review and merge into `master`, GitHub Pages rebuilds the wiki automatically.
 
-Maintainers with repository access can push changes directly. Contributors without write access can propose changes through a fork and pull request.
+Use a branch and pull request, including for maintainers. Contributors without write access can propose changes through a fork and pull request. The `Validate wiki` check runs the project check, build and internal-link validation without publishing the proposed changes. `@Bezimek` is the designated code owner; required approval and direct-push restrictions must also be enabled in the repository ruleset.
 
 ```mermaid
 flowchart LR
