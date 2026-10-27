@@ -10,7 +10,7 @@ The wiki lives in [GitHub](https://github.com/hakermany-wiki/hakermany-wiki.gith
 1. Click **Edit page** at the bottom of the article.
 2. Sign in to GitHub and edit the Markdown. Use the **Preview** tab to check it.
 3. Create a branch and open a pull request describing the change.
-4. After review and merge, GitHub Pages rebuilds the wiki automatically.
+4. After review and merge into `master`, GitHub Pages rebuilds the wiki automatically.
 
 Maintainers with repository access can push changes directly. Contributors without write access can propose changes through a fork and pull request.
 

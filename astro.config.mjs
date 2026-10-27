@@ -15,7 +15,7 @@ export default defineConfig({
     locales: { root: { label: 'English', lang: 'en' } },
     customCss: ['./src/styles/custom.css'],
     components: { Head: './src/components/Head.astro', SiteTitle: './src/components/SiteTitle.astro' },
-    editLink: { baseUrl: 'https://github.com/hakermany-wiki/hakermany-wiki.github.io/edit/main/' },
+    editLink: { baseUrl: 'https://github.com/hakermany-wiki/hakermany-wiki.github.io/edit/master/' },
     social: [{ icon: 'github', label: 'GitHub', href: 'https://github.com/hakermany-wiki/hakermany-wiki.github.io' }],
     tableOfContents: { minHeadingLevel: 2, maxHeadingLevel: 3 },
     sidebar: [
